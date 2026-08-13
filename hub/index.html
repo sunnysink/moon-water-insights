@@ -110,15 +110,60 @@
   /* plan */
   .plan{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px}
   @media (max-width:700px){ .plan{grid-template-columns:1fr} }
-  .step{position:relative; padding:20px 20px 20px 60px; border-radius:14px;
-    background:rgba(255,255,255,.72); border:1px solid var(--line)}
-  .step .n{position:absolute; left:16px; top:18px; width:32px; height:32px; border-radius:50%;
+  .step{position:relative; padding:20px 20px 20px 64px; border-radius:14px;
+    background:rgba(255,255,255,.72); border:1px solid var(--line);
+    cursor:pointer; transition:background .25s, border-color .25s, transform .25s}
+  .step:hover{background:rgba(255,255,255,.86); border-color:rgba(109,168,169,.42)}
+  .step .n{position:absolute; left:16px; top:18px; width:34px; height:34px; border-radius:50%;
     background:linear-gradient(135deg,var(--coral),#d9795f); color:#fff;
-    font-family:var(--display); font-weight:600; font-size:.86rem;
+    font-family:var(--display); font-weight:600; font-size:.9rem;
     display:flex; align-items:center; justify-content:center;
-    box-shadow:0 10px 22px -12px rgba(232,146,124,.9)}
-  .step h3{margin:0 0 4px}
-  .step p{font-size:.92rem; color:var(--ink-soft); margin:0}
+    box-shadow:0 10px 22px -12px rgba(232,146,124,.9);
+    transition:background .3s, box-shadow .3s, transform .3s;
+    overflow:hidden}
+  .step .n .num, .step .n .tick{transition:opacity .25s, transform .3s}
+  .step .n .tick{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:scale(.4)}
+  .step .n .tick svg{display:block; filter:drop-shadow(0 1px 2px rgba(61,122,123,.35))}
+  .step h3{margin:0 0 4px; transition:color .25s}
+  .step p{font-size:.92rem; color:var(--ink-soft); margin:0; transition:color .25s}
+  .step .btn.ghost{transition:opacity .25s, transform .25s}
+
+  /* checked state */
+  .step.done{background:linear-gradient(180deg, rgba(168,216,216,.35), rgba(184,212,200,.30));
+    border-color:rgba(109,168,169,.55)}
+  .step.done .n{background:linear-gradient(135deg,var(--teal),var(--ocean));
+    box-shadow:0 10px 22px -12px rgba(61,122,123,.7)}
+  .step.done .n .num{opacity:0; transform:scale(.4)}
+  .step.done .n .tick{opacity:1; transform:scale(1)}
+  .step.done h3{color:var(--driftwood); text-decoration:line-through;
+    text-decoration-color:rgba(109,168,169,.55); text-decoration-thickness:1.5px}
+  .step.done p{color:var(--mist)}
+  .step.done .btn.ghost{opacity:.55}
+
+  /* sparkle burst on check */
+  .step .n::before, .step .n::after{
+    content:""; position:absolute; width:6px; height:6px; border-radius:50%;
+    background:#f4e3c3; opacity:0; pointer-events:none;
+    box-shadow:0 0 6px 1px rgba(244,227,195,.9)}
+  .step.pop .n::before{animation:sp1 .7s ease-out}
+  .step.pop .n::after{animation:sp2 .7s ease-out}
+  @keyframes sp1{
+    0%{opacity:1; transform:translate(0,0) scale(.6)}
+    100%{opacity:0; transform:translate(-22px,-18px) scale(.2)}
+  }
+  @keyframes sp2{
+    0%{opacity:1; transform:translate(0,0) scale(.6)}
+    100%{opacity:0; transform:translate(24px,-16px) scale(.2)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .step, .step .n, .step .n .num, .step .n .tick, .step h3, .step p{transition:none}
+    .step.pop .n::before, .step.pop .n::after{animation:none}
+  }
+
+  .plan-note{margin:14px 0 0; text-align:center; font-family:var(--display); font-style:italic;
+    color:var(--driftwood); font-size:.92rem}
+  .plan-note b{color:var(--ocean); font-style:normal; font-weight:600}
 
   .meta{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:10px}
   @media (max-width:680px){ .meta{grid-template-columns:1fr} }
@@ -270,29 +315,30 @@
   <section class="card">
     <p class="eyebrow">Your Action Plan</p>
     <h2>What to do before we meet again</h2>
-    <div class="plan">
-      <div class="step">
-        <div class="n">1</div>
+    <div class="plan" id="plan">
+      <div class="step" data-step="1" role="checkbox" tabindex="0" aria-checked="false">
+        <div class="n"><span class="num">1</span><span class="tick"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L6.5 11.5 L12.5 4.5"/></svg></span></div>
         <h3>Sign up for a GitHub account</h3>
         <p>Free, ten minutes. This is where your website will live. Use the email you want tied to your business. Bring the login next time and we will get the site published on your own domain.</p>
-        <p style="margin-top:8px"><a class="btn ghost" href="https://github.com/signup" target="_blank" rel="noopener" style="padding:9px 20px; font-size:.82rem">Create your GitHub account</a></p>
+        <p style="margin-top:8px"><a class="btn ghost" href="https://github.com/signup" target="_blank" rel="noopener" style="padding:9px 20px; font-size:.82rem" onclick="event.stopPropagation()">Create your GitHub account</a></p>
       </div>
-      <div class="step">
-        <div class="n">2</div>
+      <div class="step" data-step="2" role="checkbox" tabindex="0" aria-checked="false">
+        <div class="n"><span class="num">2</span><span class="tick"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L6.5 11.5 L12.5 4.5"/></svg></span></div>
         <h3>Cast your motivation spell</h3>
         <p>Before the site goes live, clear the way. A visibility and motivation spell in your own words, your own candle, your own timing. You know exactly what this looks like.</p>
       </div>
-      <div class="step">
-        <div class="n">3</div>
+      <div class="step" data-step="3" role="checkbox" tabindex="0" aria-checked="false">
+        <div class="n"><span class="num">3</span><span class="tick"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L6.5 11.5 L12.5 4.5"/></svg></span></div>
         <h3>Upload the coastal design skill into Claude</h3>
         <p>Follow the three steps above. Once it is in, ask your Claude for a social graphic promoting the checklist and see the coastal look come out on its own.</p>
       </div>
-      <div class="step">
-        <div class="n">4</div>
+      <div class="step" data-step="4" role="checkbox" tabindex="0" aria-checked="false">
+        <div class="n"><span class="num">4</span><span class="tick"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L6.5 11.5 L12.5 4.5"/></svg></span></div>
         <h3>Read the checklist once, in full, as a reader would</h3>
         <p>Sit with it as if you were the woman receiving it. Note anything that catches: a line you would say differently, a question that surfaces a story from your own work. We will fold your notes in next session.</p>
       </div>
     </div>
+    <p class="plan-note"><b id="planCount">0 of 4</b> ready for our next meeting <span id="planCheer" style="opacity:0; transition:opacity .4s">✦ &nbsp;beautifully done&nbsp; ✦</span></p>
     <div class="hr"></div>
     <h3 style="margin-top:4px">Sitting behind those, quieter intentions</h3>
     <ul class="rings">
@@ -387,5 +433,51 @@
       frag.appendChild(div);
     });
     sky.appendChild(frag);
+  })();
+
+  /* action plan checkboxes */
+  (function(){
+    var KEY = "mwi-hub-plan-v1";
+    var state = {};
+    try{ state = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ state = {}; }
+    var steps = document.querySelectorAll("#plan .step");
+    var countEl = document.getElementById("planCount");
+    var cheer = document.getElementById("planCheer");
+
+    function render(){
+      var done = 0;
+      steps.forEach(function(step){
+        var id = step.getAttribute("data-step");
+        var on = !!state[id];
+        step.classList.toggle("done", on);
+        step.setAttribute("aria-checked", on ? "true" : "false");
+        if(on) done++;
+      });
+      countEl.textContent = done + " of " + steps.length + " ready for our next meeting";
+      cheer.style.opacity = (done === steps.length) ? "1" : "0";
+      try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    }
+
+    function toggle(step){
+      var id = step.getAttribute("data-step");
+      var next = !state[id];
+      state[id] = next;
+      if(next){
+        step.classList.add("pop");
+        setTimeout(function(){ step.classList.remove("pop"); }, 750);
+      }
+      render();
+    }
+
+    steps.forEach(function(step){
+      step.addEventListener("click", function(e){
+        if(e.target.closest("a")) return;
+        toggle(step);
+      });
+      step.addEventListener("keydown", function(e){
+        if(e.key === " " || e.key === "Enter"){ e.preventDefault(); toggle(step); }
+      });
+    });
+    render();
   })();
 </script>
