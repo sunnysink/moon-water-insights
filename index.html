@@ -1,0 +1,153 @@
+<title>Moon Water · Ideal Client</title>
+<style>
+  :root{
+    --pearl:#F5F0E8; --shell:#E8D5B7; --aqua:#A8D8D8; --seafoam:#B8D4C8;
+    --teal:#6DA8A9; --ocean:#3D7A7B; --driftwood:#4A6E6F; --mist:#9EB8B9;
+    --sand:#C4A882; --conch:#D4B896; --coral:#E8927C;
+    --ink:#33474a; --ink-soft:#5a6d6d;
+    --script:'Snell Roundhand','Brush Script MT','Segoe Script',cursive;
+    --display:'Cinzel','Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --body:'Raleway','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--ink); font-family:var(--body); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(1100px 640px at 8% -10%, rgba(168,216,216,.55), transparent 60%),
+      radial-gradient(900px 620px at 108% 4%, rgba(232,146,124,.22), transparent 56%),
+      radial-gradient(1000px 820px at 55% 120%, rgba(232,213,183,.5), transparent 62%),
+      var(--pearl);
+  }
+  .wrap{max-width:840px; margin:0 auto; padding:48px 22px 72px}
+
+  header.board{text-align:center; padding:40px 24px 30px; border-radius:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.3));
+    border:1px solid rgba(109,168,169,.28);
+    box-shadow:0 20px 60px -32px rgba(61,122,123,.5)}
+  .kicker{font-family:var(--display); letter-spacing:.32em; text-transform:uppercase;
+    font-size:.72rem; color:var(--teal); margin:0 0 14px}
+  .brand{font-family:var(--script); font-size:clamp(2.3rem,7vw,3.4rem); color:var(--sand);
+    line-height:.95; margin:0; font-weight:400}
+  .brand .num{font-family:var(--display); font-size:.5em; color:var(--ocean); letter-spacing:.08em}
+  .glyphs{color:var(--conch); letter-spacing:.5em; font-size:1.05rem; margin:12px 0 18px}
+  h1{font-family:var(--display); color:var(--ocean); font-weight:600;
+    font-size:clamp(1.4rem,4vw,2rem); margin:0; letter-spacing:.02em}
+  .sub{font-family:var(--display); font-style:italic; color:var(--driftwood);
+    font-size:1.05rem; margin:8px auto 0; max-width:44ch}
+
+  .lead{margin:30px 0 0; padding:28px 26px; border-radius:18px;
+    background:rgba(255,255,255,.55); border:1px solid rgba(154,184,185,.3);
+    box-shadow:0 14px 40px -30px rgba(61,122,123,.55); font-size:1.12rem; color:var(--ink)}
+  .lead b{color:var(--ocean)}
+
+  h2{font-family:var(--display); color:var(--ocean); font-weight:600; font-size:1.3rem;
+    letter-spacing:.02em; margin:38px 0 4px; display:flex; align-items:center; gap:10px}
+  h2 .m{color:var(--coral); font-size:.9rem}
+  .card{margin:12px 0; padding:22px 24px; border-radius:16px;
+    background:rgba(255,255,255,.5); border:1px solid rgba(154,184,185,.28)}
+  .card p{margin:0 0 10px}
+  .card p:last-child{margin-bottom:0}
+  .card b{color:var(--ocean)}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:12px 0}
+  .tile{padding:18px 20px; border-radius:14px; background:rgba(168,216,216,.24);
+    border:1px solid rgba(109,168,169,.28)}
+  .tile h3{font-family:var(--display); color:var(--ocean); font-size:1.02rem; margin:0 0 6px; font-weight:600}
+  .tile p{margin:0; font-size:.95rem; color:var(--ink)}
+
+  .quotes{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0}
+  .q{font-family:var(--display); font-style:italic; color:var(--driftwood);
+    background:rgba(232,213,183,.4); border:1px solid rgba(196,168,130,.4);
+    padding:9px 15px; border-radius:30px; font-size:.98rem}
+
+  .map{margin:12px 0}
+  .row{display:flex; gap:14px; align-items:flex-start; padding:13px 4px;
+    border-bottom:1px solid rgba(154,184,185,.3)}
+  .row:last-child{border-bottom:none}
+  .row .name{font-family:var(--display); color:var(--ocean); font-weight:600; flex:0 0 175px; font-size:1rem}
+  .row .desc{color:var(--ink); font-size:.97rem}
+  @media(max-width:560px){ .row{flex-direction:column; gap:2px} .row .name{flex-basis:auto} }
+
+  .lane{margin:12px 0; padding:24px 26px; border-radius:16px; text-align:center;
+    background:linear-gradient(180deg, rgba(184,212,200,.4), rgba(168,216,216,.3));
+    border:1px solid rgba(109,168,169,.35)}
+  .lane p{margin:0; font-size:1.08rem; color:var(--driftwood)}
+  .lane b{color:var(--ocean)}
+
+  .rules{list-style:none; padding:0; margin:12px 0}
+  .rules li{padding:12px 16px 12px 42px; margin:9px 0; border-radius:12px; position:relative;
+    background:rgba(255,255,255,.5); border:1px solid rgba(154,184,185,.28); color:var(--ink)}
+  .rules li::before{content:"☾"; position:absolute; left:16px; top:12px; color:var(--coral)}
+  .rules b{color:var(--ocean)}
+
+  footer{text-align:center; margin:46px 0 0; color:var(--ink-soft)}
+  footer .fb{font-family:var(--script); font-size:1.5rem; color:var(--sand)}
+  footer .tag{font-family:var(--display); font-style:italic; color:var(--driftwood); margin-top:4px}
+</style>
+
+<div class="wrap">
+
+  <header class="board">
+    <p class="kicker">Ideal Client Profile</p>
+    <p class="brand">Moon Water <span class="num">11</span></p>
+    <div class="glyphs">☾ &nbsp;✦&nbsp; ☾</div>
+    <h1>The Woman You Are Really For</h1>
+    <p class="sub">One person, named clearly, so every reading and every post sounds like it was written for her.</p>
+  </header>
+
+  <div class="lead">
+    <p>She is a <b>woman between 35 and 55</b>, in a relationship that has reached a real decision point: moving in, engagement, marriage, or blending two families into one. She is not asking whether he likes her. She is asking whether this is <b>safe to build a future on</b>. Her doubt is about trust and openness, and she is tired of guessing at the answer alone.</p>
+  </div>
+
+  <h2><span class="m">✦</span> Where she is standing</h2>
+  <div class="grid">
+    <div class="tile"><h3>At a threshold</h3><p>A bigger step is on the table and she wants to walk into it with her eyes open, not on hope.</p></div>
+    <div class="tile"><h3>Carrying the load</h3><p>She holds the mental weight of the relationship. She over-functions, smooths things over, and keeps it all running.</p></div>
+    <div class="tile"><h3>Family in the frame</h3><p>Kids, in-laws, exes, and co-parenting are part of every decision. Loyalty gets pulled in more than one direction.</p></div>
+    <div class="tile"><h3>Grounded, not dreamy</h3><p>Money and stability are real responsibilities. "Follow your heart" is useless to her. She needs a decision she can stand on.</p></div>
+  </div>
+
+  <h2><span class="m">✦</span> The question underneath everything</h2>
+  <div class="card">
+    <p>Every reading she books is really the same question in a different outfit: <b>can I trust what he shows me, and is this connection open enough to build on?</b></p>
+    <p>That is her real ache, and it is also your lane. Plenty of readers talk about "relationship readiness." Almost nobody owns <b>trust and openness</b> the way you can. Lead there and she recognizes herself instantly.</p>
+  </div>
+
+  <h2><span class="m">✦</span> What she would actually say</h2>
+  <div class="quotes">
+    <span class="q">"Am I carrying this alone?"</span>
+    <span class="q">"Is he actually being open with me?"</span>
+    <span class="q">"Are we ready, or am I just tired of waiting?"</span>
+    <span class="q">"Is this safe to build on?"</span>
+    <span class="q">"What do I do before we take the next step?"</span>
+  </div>
+
+  <h2><span class="m">✦</span> Who she is not</h2>
+  <div class="card">
+    <p>Naming this keeps your copy from drifting back to "tarot for everyone." She is <b>not</b> the twenty-something chasing a crush, the soulmate-and-twin-flame fantasy seeker, or the client who wants to be told exactly what is coming. She wants clarity she can act on and a decision she owns. That matches your ethics: real insight, free will, no fear, no dependency.</p>
+  </div>
+
+  <h2><span class="m">✦</span> How your readings map to her life</h2>
+  <div class="card map">
+    <div class="row"><div class="name">Heart Truth</div><div class="desc">The core question. Is this connection built on openness, and is it safe to keep investing in?</div></div>
+    <div class="row"><div class="name">Are We Ready?</div><div class="desc">The threshold moment. What has to be true before engagement, marriage, or moving in makes sense.</div></div>
+    <div class="row"><div class="name">Protection &amp; Peace</div><div class="desc">The cost of carrying it all. Clearing the drain and the over-functioning so she can think straight.</div></div>
+    <div class="row"><div class="name">Resource Rebalance</div><div class="desc">Her money and stability. The practical ground under every relationship decision she makes.</div></div>
+  </div>
+  <div class="lane"><p>These are not four different audiences. They are <b>one woman's whole life</b>, read from four angles. That is rare, and it is your strongest asset.</p></div>
+
+  <h2><span class="m">✦</span> The rules that keep her in focus</h2>
+  <ul class="rules">
+    <li><b>Name the trust question first.</b> Openness and honesty come before the ring in every headline.</li>
+    <li><b>Speak to the woman who is already invested.</b> She has time, love, and a future on the line, and she is done doing it alone.</li>
+    <li><b>Stay concrete.</b> "The conversation to have before you move in" beats "clarity on your path" every time.</li>
+    <li><b>Hold the frame.</b> When copy starts sounding like it is for everyone, you have wandered off her. Come back to the threshold and the trust.</li>
+  </ul>
+
+  <footer>
+    <div class="fb">Moon Water Insights</div>
+    <div class="tag">The Magic Is Within You</div>
+  </footer>
+
+</div>
